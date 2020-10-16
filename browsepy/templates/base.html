@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>{% block title %}{{ config.get("title", "BrowsePy") }}{% endblock %}</title>
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}"/>
+    	<link href="{{ url_for('.static', filename='css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    	<link href="{{ url_for('.static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    {% endblock %}
+
+    {% block scripts %}
+    	<script src="//code.jquery.com/jquery-latest.js"></script>
+    	<script src="{{ url_for('.static', filename='js/bootstrap.min.js') }}"></script>
+    	<script src="{{ url_for('.static', filename='js/bootbox.min.js') }} "></script>
+        <script src="{{ url_for('static', filename='terms.js') }}"></script>
+        <script src="{{ url_for('static', filename='base.js') }}"></script>
+    {% endblock %}
+</head>
+
+<body>
+	<div class="banner">
+		<a href="http://www.preventionweb.net/english/hyogo/gar/2015/en/home/index.html"><img src="{{ url_for('.static', filename='BannerRiskAtlas.png') }}" /></a>
+        	<a class="innermnm" href="http://www.mnm-team.org/"><img src="{{ url_for('.static', filename='mnmLogoNeu_caption.png') }}" height="90px"/></a></div>
+	</div>
+
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+        <footer style="max-width:1200px; border-style:solid; border-width:2px; margin-top:50px">
+            <p style="margin:5px">All datasets can be accessed online through this experimental service offered by the <a href="http://mnm-team.org/">MNM-Team</a> at Ludwig-Maximilians-Universität München in Munich. The service is part of an ongoing collaboration between UNISDR and Munich area research groups and has been launched to gauge interest, gather feedback and to identify additional services that could support new uses of the GAR data. In case you encounter any issues or have any questions about the service, please contact <a href="mailto:info@envcomp.eu" target="_top">info@envcomp.eu</a>!
+</p>
+        </footer>
+    {% endblock %}
+
+</body>
+</html>

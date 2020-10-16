@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block style %}
+    {{ super() }}
+    {% for widget in manager.get_widgets('style') %}
+        <link rel="stylesheet" type="text/css" href="{{ widget.href }}"/>
+    {% endfor %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% for widget in manager.get_widgets('javascript') %}
+        <script src="{{ widget.src }}"></script>
+    {% endfor %}
+{% endblock %}
+
+{% block header %}
+    <br>
+    <br>
+    <div class="wrap">
+        <p>The Global Assessment Report on Disaster Risk Reduction (GAR) is a biennial global assessment of disaster risk reduction and comprehensive review and analysis of the natural hazards that are affecting humanity. For more information about the document and the process, please see the <a href="https://www.unisdr.org/we/inform/gar" target="_blank">UNISDR GAR pages</a>.</p>
+        <p>The assessment relies on a vast dataset produced by a large number of collaborating institutions. This dataset can now be accessed online through an experimental service offered by the <a href="http://www.mnm-team.org/" target="_blank">MNM-Team</a>. The service has been launched to gauge interest, gather feedback and to estimate resourced needed in sustainable operations. In case you encounter any issues or have any questions about the service, please contact <a href="mailto:info@envcomp.eu" target="_blank">info@envcomp.eu</a>!</p>
+    </div>
+    <a href="javaScript:popupTerms();">Terms and Conditions</a>
+    <h3> <b>Navigation:</b>
+        {% for parent in file.ancestors[::-1] %}
+            <a href="{{ url_for('browse', path=parent.urlpath) }}">{{ parent.name }}</a>
+            <span> / </span>
+        {% endfor %}
+        {{ file.name }}
+    </h3>
+{% endblock %}
+
+{% block content %}
+
+    <div class="navigation"> <b>Description:</b>
+        {{ file.description if file.description else "" }}
+    </div>
+
+    {#{% if file.can_upload %}#}
+    {#    <form class="upload" method="post" action="{{ url_for('upload', path=file.urlpath) }}" enctype="multipart/form-data">#}
+    {#        <label>#}
+    {#            <h2>Upload</h2>#}
+    {#            <input type="file" name="file"/>#}
+    {#        </label>#}
+    {#        <input type="submit"/>#}
+    {#    </form>#}
+    {#{% endif %}#}
+    {% if file.is_empty %}
+        <p>No files in directory</p>
+    {% else %}
+        <div class="table-responsive">
+            <table class="browser table">
+                <thead>
+                <tr>
+                    <th colspan="2">Name</th>
+                    <th>Download</th>
+                    <th>Description</th>
+                    <!--<th>Edit</th>-->
+                    <th>Mimetype</th>
+                    <th>Modified</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for f in files %}
+                    <tr>
+                        {% set endpoint, widget = f.default_action %}
+                        <td class="{{ widget.icon }}"></td>
+                        <td>
+                            <a href="{{ url_for(endpoint, path=f.urlpath) }}"
+                               {% if widget.css %}class="{{ widget.css }}"{% endif %}
+                            >{{ widget.text }}</a>
+                        </td>
+                        <td>
+                            {#                        {% if f.can_remove %}#}
+                            {#                            <a href="{{ url_for('remove', path=f.urlpath) }}" class="remove button"></a>#}
+                            {#                        {% endif %}#}
+                            {% if f.can_download %}
+                                <div align="center">
+                                    <a title='{{ "Download directory as tar-archive" if f.is_directory else "Download file" }}'
+                                       href="{{ url_for('download_directory' if f.is_directory else 'download_file', path=f.urlpath) }}"
+                                       class="download button">
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% for endpoint, widget in f.actions %}
+                                {% if widget.place == 'button' %}
+                                    <a href="{{ url_for(endpoint, path=f.urlpath) }}"
+                                       class="button{% if widget.css %} {{widget.css}}{% endif %}"
+                                    >{{ widget.content }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ f.description if f.description else "" }}
+                        </td>
+                        <!--<td>
+                            <div align="center">
+                                <a title="Click to edit metadata" href="javaScript:editMetadata('{{ f.urlpath }}', '{{ f.description if f.description else "" }}');" class="edit button"></a>
+                            </div>
+                        </td>-->
+                        <td>{{ f.type }}</td>
+                        <td>{{ f.modified }}</td>
+                        <td>{{ f.size }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    <script>
+
+    </script>
+    {#    <button name="'test" class="btn btn-default" id ="button1" onclick="test(1)">TEST</button>#}
+    <script>
+        function editMetadata(path, meta)
+        {
+            bootbox.prompt({
+                title: "<strong>Edit description of " + path +"</strong>",
+                inputType: 'textarea',
+                value: meta,
+                buttons: {
+                    confirm: {
+                        label: 'Save',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Cancel',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function(result) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/edit/' + path,
+                        data: JSON.stringify({'description' : result}),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function() {
+                            window.location.reload(true);
+                        }
+                    })
+                }
+            });
+        }
+    </script>
+{% endblock %}

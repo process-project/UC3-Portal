@@ -1,0 +1,227 @@
+@font-face {
+    font-family: "Glyphicons Halflings";
+    src:url('fonts/glyphicons-halflings-regular.svg') format('svg'),
+        url('fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+        url('fonts/glyphicons-halflings-regular.woff2') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+.button, .file-icon, .dir-icon{
+	font-family: 'Glyphicons Halflings';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+html{
+    min-height:100%;
+    position:relative;
+    }
+
+body{
+
+    font-family:sans;
+    font-size:0.75em;
+    padding:3.5em 1em 3.5em; margin:0;
+    min-height:100%;
+    #width:1200px;
+    }
+
+.banner{
+    padding:0;
+    margin:0;
+    position: relative;
+    display: table;
+    max-width:1200px;
+    max-height:100px;
+    height:auto;
+    overflow:auto;
+}
+
+.innermnm{
+	padding:5px;
+	position: absolute;
+	left: 500px;
+}
+
+.navigation{
+    max-width:1200px;
+}
+
+div.wrap{
+    max-width:1200px;
+}
+a, label, input[type=submit], input[type=file]{
+    cursor: pointer;
+}
+a{
+    color:#666;
+    text-decoration:none;
+    }
+a:hover{
+    color:black;
+    }
+a:active{
+    color:#666;
+    }
+ul.main-menu{
+    padding:0;margin:0;
+    list-style:none;
+    display:block;
+}
+ul.main-menu > li{
+    font-size:1.25em;
+    }
+form.upload{
+    border: 1px solid #333;
+    display: inline-block;
+    margin: 0 0 1em;
+    padding: 0;
+}
+form.upload:after{
+    content: '';
+    clear:both;
+}
+form.upload h2{
+    display:inline-block;
+    padding: 1em 0;
+    margin: 0;
+}
+form.upload label{
+    display: inline-block;
+    background: #333;
+    color: white;
+    padding: 0 1.5em;
+}
+form.upload label input{
+    margin-right: 0;
+}
+form.upload input{
+    margin: 0.5em 1em;
+}
+form.remove{
+    display: inline-block;
+}
+form.remove input[type=submit]{
+    min-width: 10em;
+}
+table.browser{
+    width:1200px;
+    display:block;
+    table-layout:fixed;
+    overflow-x:auto;
+    }
+table.browser tr:nth-child(2n){
+    background-color:#efefef;
+    }
+table.browser th,
+table.browser td{
+    margin:0;
+    text-align:center;
+    vertical-align:middle;
+    word-wrap:break-word;
+    padding:5px;
+    }
+table.browser th{
+    padding-bottom:10px;
+    border-bottom:1px solid black;
+    }
+table.browser td:first-child{
+    min-width:1em;
+    }
+table.browser td:nth-child(2){
+    text-align:left;
+    width: 50%;
+}
+table.browser td:nth-child(3){
+    text-align:left;
+    white-space:nowrap;
+    }
+table.browser td:nth-child(4){
+    text-align:left;
+    width: 50%;
+    }
+.icon-image{
+
+    }
+
+ul.navbar, ul.footer{
+    position:absolute;left:0;right:0;
+    width:auto;
+    margin:0; padding:0 1em;
+    display:block;
+    line-height:2.5em;
+    background:#333;
+    color:white;
+    }
+ul.navbar a, ul.footer a{
+    color:white;
+    font-weight:bold;
+    }
+ul.navbar {
+    top:0;
+    }
+ul.footer {
+    bottom:0;
+    }
+ul.navbar a:hover{
+    color:gray;
+    }
+ul.navbar > li, ul.footer > li{
+    list-style:none;
+    display:inline;
+    margin-right:10px;
+    width:100%;
+    }
+.file-icon:after{
+    content: "\e022";
+    }
+.dir-icon:after{
+    content: "\e118";
+    }
+a.button{
+    }
+a.button:hover{
+/*    color:white;
+    background:black;*/
+    }
+a.button.download:after{
+    content: "\e026";
+    }
+a.button.remove:after{
+    content: "\e014";
+    }
+a.button.edit:after{
+    content: "\270f";
+    }
+strong[data-prefix]{
+    display: inline-block;
+    cursor: help;
+}
+strong[data-prefix]:after{
+    display: inline-block;
+    position: relative;
+    top: -0.5em;
+    margin: 0 0.25em;
+    width: 1.2em;
+    height: 1.2em;
+    font-size: 0.75em;
+    text-align: center;
+    line-height: 1.2em;
+    content: 'i';
+    border-radius: 0.5em;
+    color: white;
+    background-color: darkgray;
+}
+strong[data-prefix]:hover:after{
+    display: none;
+}
+strong[data-prefix]:hover:before{
+    content: attr(data-prefix);
+}
