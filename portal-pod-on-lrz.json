@@ -1,0 +1,31 @@
+{
+	"name": "uc3-portal-1",
+	"namespace": "uc3",
+	"dedicatedNode": false,
+	"deployNode": "process-dss",
+	"runAsUser":3938873,
+	"runAsGroup":2222,
+	"storageAdaptorContainers": [
+		
+	],
+	"initContainers": [],
+	"logicContainers": [
+			{
+			"name": "lrz-portal",
+			"type": "generic",
+			"image": "microinfrastructure/process-uc3-portal:3938873",
+			"env":[
+				{"name": "DIR", "value": "/mnt"}
+				],
+			"mountHost": [
+				{ "hostPath": "/mnt/dss", "mountPath": "/mnt" }
+			],
+			"port":8080,
+			"service":{
+				"enabled": true
+			},
+			"cmd":["python -m browsepy --debug 0.0.0.0 8080 --directory $DIR/process/UC3"]
+		}
+	]
+
+}
